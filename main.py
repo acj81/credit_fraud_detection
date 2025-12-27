@@ -76,7 +76,35 @@ if __name__ == "__main__":
     # --- 2-layer NN --- :
     print(f" --- 2-layer NN --- ")
     model = models.NeuralNet(
-        dimensions = [[28, 14],[14, 1]]
+        dimensions = [[29, 14],[14, 1]]
+    )
+
+    # test on data:
+    loss = model.test_loop(
+        data_loader = test_loader,
+        loss_fn = nn.MSELoss()
+    )
+    print(f"start loss: {loss}")
+    
+    # train on data:
+    model.train_loop(
+        data_loader = train_loader,
+        num_epochs = 10,
+        loss_fn = nn.MSELoss(),
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.001)
+    )
+
+    # test on data:
+    loss = model.test_loop(
+        data_loader = test_loader,
+        loss_fn = nn.MSELoss()
+    )
+    print(f"end loss: {loss}")
+
+    # --- 3-layer NN --- :
+    print(f" --- 2-layer NN --- ")
+    model = models.NeuralNet(
+        dimensions = [[29, 14],[14,14],[14, 1]]
     )
 
     # test on data:
